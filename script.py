@@ -8,7 +8,8 @@ def convert_to_word(number):
         60: 'sixty',
         70: 'seventy',
         80: 'eighty',
-        90: 'ninety'
+        90: 'ninety',
+        100: 'hundred'
     }
 
     if number in word_mapping:
