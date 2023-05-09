@@ -14,6 +14,8 @@ def convert_to_word(number):
 
     if number in word_mapping:
         return word_mapping[number]
+    elif number == 0:
+        return number
     elif number < 10 or number > 90 or number % 10 == 0:
         return ''
 
