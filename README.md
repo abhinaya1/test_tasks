@@ -18,7 +18,7 @@ By following best practices, this Dockerfile:
 6. Exposes port 8080 from the container, allowing external access to the application.
 7. Specifies the CMD instruction to start the application using node index.js when the container is launched.   
 
-# Docker-compoase.yml  
+# Docker-compose.yml  
 Make sure to place this docker-compose.yml file in a directory alongside the node-js-getting-started directory (which contains your Node.js application code).  
 
 Explanation:   
