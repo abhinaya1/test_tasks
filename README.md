@@ -3,6 +3,7 @@ To build the Docker image, navigate to the directory containing the Dockerfile a
 ```docker build -t my-node-app```
 
 Replace "my-node-app" with the desired name for your Docker image.  
+
 To run a container using the built image, use the following command:  
 ```docker run -p 8080:8080 my-node-app```    
 This command maps port 8080 of the host machine to port 8080 of the container. Replace "my-node-app" with the actual image name if you used a different name during the build.
@@ -36,5 +37,13 @@ To use this setup:
 ```docker-compose up```   
 5. Once the services are up and running, you can access the Node.js application at http://localhost:8080, Grafana at http://localhost:3000, and Loki at http://localhost:3100.   
 The Node.js application's logs will be collected by Promtail and sent to Loki for storage and retrieval. You can then use Grafana to create visualizations and dashboards based on the collected logs.  
+
+# Python script  
+
+The `convert_to_word()` function takes a number as input and converts it to a wordy version if it falls in the range of 10, 20, 30, and so on. It uses a dictionary `word_mapping` to store the mapping of tens values.
+
+The script then iterates through the numbers from 0 to 100. If a number is a multiple of 10, it calls `convert_to_word()` to get the wordy version and prints it. Otherwise, it simply prints the number as is.
+
+When you run this script, it will print the numbers from 0 to 100, with every tenth number replaced by its wordy version. For example, it will print "ten" instead of 10, "twenty" instead of 20, "thirty" instead of 30, and so on.
 
 
