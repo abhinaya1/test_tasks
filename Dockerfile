@@ -1,41 +1,23 @@
-version: "3.8"
-services:
-  nodejs-app:
-    build:
-      context: ./node-js-getting-started
-      dockerfile: Dockerfile
-    ports:
-      - 8080:8080
-    depends_on:
-      - loki
-      - promtail
-    logging:
-      driver: loki
-      options:
-        loki-url: "http://loki:3100/loki/api/v1/push"
-        loki-external-labels: "container_name={{.Name}}"
+# Use a lightweight Node.js base image with the LTS version
+FROM node:lts-alpine
 
-  loki:
-    image: grafana/loki:latest
-    ports:
-      - 3100:3100
-    command: -config.file=/etc/loki/local-config.yaml
-    volumes:
-      - ./loki-config.yaml:/etc/loki/local-config.yaml
+# Set the working directory in the container
+WORKDIR /app
 
-  promtail:
-    image: grafana/promtail:latest
-    volumes:
-      - ./promtail-config.yaml:/etc/promtail/promtail-config.yaml
-      - /var/log:/var/log
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
 
-  grafana:
-    image: grafana/grafana:latest
-    ports:
-      - 3000:3000
-    depends_on:
-      - loki
-    volumes:
-      - ./grafana-data:/var/lib/grafana
-    environment:
-      GF_INSTALL_PLUGINS: "grafana-piechart-panel"
+# Install production dependencies
+RUN npm ci --only=production
+
+# Copy the rest of the application code to the container
+COPY . .
+
+# Set the environment variables
+ENV PORT=8080
+
+# Expose the port the app will listen on
+EXPOSE $PORT
+
+# Start the application
+CMD [ "node", "index.js" ]
